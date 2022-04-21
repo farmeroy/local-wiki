@@ -1,5 +1,7 @@
 const express = require('express');
 const sqlite3 = require("better-sqlite3");
+const bodyParser = require('body-parser');
+
 
 const db = new sqlite3('./database.db') 
 
@@ -23,6 +25,11 @@ db.prepare(
 ).run();
 
 const app = express();
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 const port = 5000 || process.env.PORT;
 
 app.use(express.json());
@@ -35,8 +42,18 @@ app.get('/', (req, res) => {
 
 // Get a wiki page from the database
 // returns the most recent edit
-app.get('/pages/:name', (req, res) => {
-  
+app.get('/pages/:name', (req, res, next) => {
+  const getPageContent = db.prepare(`
+    SELECT
+      text,
+      pages.name AS name
+    FROM
+      content
+    INNER JOIN pages ON pages.id = content.pages_id
+    WHERE
+      pages.name = (?)
+  `);
+  const pageContent = res.json(getPageContent.all(req.params.name)); 
 })
 
 // Add an edit to a wiki page
