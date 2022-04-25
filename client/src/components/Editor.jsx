@@ -27,7 +27,6 @@ const Editor = () => {
 
   useEffect(() => {
     const pagePath = location.pathname.replace(/edit/, "");
-    console.log(pagePath);
     axios
       .get(`http://localhost:5000${pagePath}`)
       .then((resp) => {
