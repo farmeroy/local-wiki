@@ -7,7 +7,7 @@ const TopNav = () => {
       <Navbar bg='light' sticky="top">
         <Container fluid>
           <Navbar.Brand>
-            <Link to={"/pages/Main_Page"}>WikiWiki</Link>
+            <Link to={"/pages/Main Page"}>WikiWiki</Link>
           </Navbar.Brand>
           <Form >
             <FormControl
