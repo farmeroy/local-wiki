@@ -2,6 +2,7 @@ const express = require("express");
 const sqlite3 = require("better-sqlite3");
 const bodyParser = require("body-parser");
 const fs = require("fs");
+const cors = require('cors');
 
 const path = "./database.db";
 let db = null;
@@ -48,6 +49,7 @@ app.use(
     extended: true,
   })
 );
+app.use(cors())
 const port = 5000 || process.env.PORT;
 
 app.use(express.json());
@@ -74,7 +76,8 @@ app.get("/pages/:name", (req, res, next) => {
     AND
       created_at = (SELECT MAX(created_at) FROM content)
   `);
-  const pageContent = res.json(getPageContent.all(req.params.name));
+  const pageContent = getPageContent.all(req.params.name) 
+  res.json(pageContent);
 });
 
 // Add an edit to a wiki page
