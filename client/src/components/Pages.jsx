@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Container, Row, Col} from 'react-bootstrap';
 import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
@@ -25,10 +26,19 @@ const Pages = (props) => {
   }, [])
 
   return (
-    <>
-      <h1>{pagesData.title}</h1>
+    <Container>
+      <Row>
+        <Col>
+          <h1>{pagesData.title}</h1>
+        </Col>
+        <Col>
+          <Link to={`${location.pathname}/edit`} >Edit</Link>
+        </Col>
+      </Row>
+      <Row>
       <ReactMarkdown>{pagesData.text}</ReactMarkdown>
-  </> 
+      </Row>
+  </Container> 
   )
 }
 
