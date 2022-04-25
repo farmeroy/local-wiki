@@ -24,7 +24,7 @@ try {
       `CREATE TABLE IF NOT EXISTS content (
   id INTEGER PRIMARY KEY AUTOINCREMENT, 
   change TEXT, 
-  title TEXT,
+  title TEXT NOT NULL,
   text TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   pages_id INTEGER NOT NULL,
