@@ -15,10 +15,17 @@ const Pages = (props) => {
       .get(`http://localhost:5000${location.pathname}`, {
       })
       .then((resp) => {
+        if (resp.data[0]) {
         const data = resp.data[0];
         setPagesData(state => data);
         console.log(data)
         console.log(pagesData)
+        } else {
+          setPagesData({
+            title: 'no title',
+            text: 'this page does not exist'
+          })
+        }
       })
       .catch((error) => {
         console.log(error)
@@ -42,4 +49,4 @@ const Pages = (props) => {
   )
 }
 
-export default Pages;
+export default Pages
