@@ -8,7 +8,6 @@ const Pages = (props) => {
 
   const [pagesData, setPagesData] = useState({});
   const location = useLocation();
-  console.log(location.pathname)
 
   useEffect(() => {
     axios
@@ -18,11 +17,9 @@ const Pages = (props) => {
         if (resp.data[0]) {
         const data = resp.data[0];
         setPagesData(state => data);
-        console.log(data)
-        console.log(pagesData)
         } else {
           setPagesData({
-            title: 'no title',
+            title: location.pathname,
             text: 'this page does not exist'
           })
         }
