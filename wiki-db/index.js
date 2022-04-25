@@ -27,18 +27,18 @@ try {
   title TEXT,
   text TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  pages_id INTEGER,
+  pages_id INTEGER NOT NULL,
   CONSTRAINT content_for_pages_id FOREIGN KEY (pages_id) REFERENCES pages (id) 
   )`
     ).run();
     // create the basic "Main Page"
-    db.prepare(
-      `
-      INSERT INTO pages
-      VALUES (name)
-      ('Main Page')
-      `
-    ).run();
+    // db.prepare(
+    //   `
+    //   INSERT INTO pages
+    //   VALUES (name)
+    //   ('Main Page')
+    //   `
+    // ).run();
   }
 } catch (err) {
   console.log(err);
