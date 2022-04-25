@@ -7,6 +7,8 @@ import { Row, Col, Container, Form, Button } from "react-bootstrap";
 const Editor = () => {
   const location = useLocation();
   const [markdown, setMarkdown] = useState("");
+  const [title, setTitle] = useState("");
+  const [changeText, setChangeText] = useState("")
 
   useEffect(() => {
     const pagePath = location.pathname.replace(/edit/, "");
@@ -16,6 +18,7 @@ const Editor = () => {
       .then((resp) => {
         const data = resp.data[0];
         setMarkdown((state) => data.text);
+        setTitle(state => data.title)
       })
       .catch((error) => {
         console.log(error);
@@ -23,9 +26,13 @@ const Editor = () => {
   }, []);
 
   const textChangeHandler = (event) => {
-    event.preventDefault();
-    setMarkdown(event.target.value);
+    setMarkdown(event.target.value)
   };
+
+  const titleChangeHandler = (event) => {
+    setTitle(event.target.value);
+  };
+
 
   return (
     <Form>
@@ -35,7 +42,7 @@ const Editor = () => {
             <Form.Group as={Row} controlID="title"> 
               <Form.Label column sm={4} as="h2">Title</Form.Label>
               <Col sm={8}>
-                <Form.Control type="text"></Form.Control>
+                <Form.Control type="text" onChange={titleChangeHandler}></Form.Control>
               </Col>
             </Form.Group>
             <Form.Group as={Row} controlId='change'>
