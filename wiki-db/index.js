@@ -80,6 +80,21 @@ app.get("/pages/:name", (req, res, next) => {
   res.json(pageContent);
 });
 
+app.put("/pages/create", (req, res) => {
+  const createPage = db.prepare(`
+    INSERT INTO pages
+    (name) VALUES
+    (?)
+  `);
+  const page = createPage.run(req.body.name);
+  console.log(page)
+  const getPage = db.prepare(`
+    SELECT * FROM page
+    WHERE name = (?)
+  `);
+  res.json(getPage.all(req.body.name));
+})
+
 // Add an edit to a wiki page
 app.put("/pages/:name/edit", (req, res) => {
   const newTitle = req.body.title;
